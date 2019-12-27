@@ -1,22 +1,19 @@
 <div class="ui-g">
     <p-panel header="Administracion de personas">
-        <p-table [value]="personas">
-            <ng-template pTemplate="header">
+        <p-table [value]="personas" [columns]="cols" [paginator]="true" [rows]="5">
+            <ng-template pTemplate="header" let-columns>
                 <tr>
-                    <th>ID</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Direccion</th>
-                    <th>Telefono</th>
+                    <th *ngFor="let col of columns">
+                        {{col.header}}
+                    </th>
+
                 </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-persona>
+            <ng-template pTemplate="body" let-persona let-columns="columns">
                 <tr>
-                    <td>{{persona.id}}</td>
-                    <td>{{persona.nombre}}</td>
-                    <td>{{persona.apellido}}</td>
-                    <td>{{persona.direccion}}</td>
-                    <td>{{persona.telefono}}</td>
+                    <td *ngFor="let col of columns">
+                        {{persona[col.field]}}
+                    </td>
                 </tr>
             </ng-template>
         </p-table>

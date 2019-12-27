@@ -9,19 +9,21 @@ import { PersonaService } from '../Service/persona.service';
 })
 export class PersonaComponent implements OnInit {
 
-  personas: Persona[]=[];
+  personas: Persona[];
+  cols: any [];
 
   constructor(private personaService: PersonaService) { }
 
   getAll(){
     this.personaService.getAll().subscribe(
       (result: any) => {
+        let personas: Persona[] = [];
         for (let i = 0; i < result.length; i++) {
           let persona = result[i] as Persona;
-
-          this.personas.push(persona);
+          personas.push(persona);
           
         }
+        this.personas = personas;
       },
       error =>{
         console.log(error);
@@ -30,6 +32,13 @@ export class PersonaComponent implements OnInit {
   }
   ngOnInit() {
     this.getAll();
+    this.cols = [
+      {field: "id", header: "ID"},
+      {field: "nombre", header: "Nombre"},
+      {field: "apellido", header: "Apellido"},
+      {field: "direccion", header: "Direccion"},
+      {field: "telefono", header: "Telefono"},
+    ];
     
   }
 
