@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, observable } from 'rxjs';
+import { Persona } from '../Modelo/persona';
 
 @Injectable({
   providedIn: 'root'
@@ -14,5 +15,14 @@ export class PersonaService {
   getAll() : Observable<any>{
       return this.http.get(this.baseUrl + "/all");
 
+  }
+  save(persona: Persona): Observable<any>{
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json');
+    return this.http.post(this.baseUrl +"/save", JSON.stringify(persona), {headers: headers});
+    
+  }
+  delete(id: number): Observable<any>{
+    return this.http.get(this.baseUrl + "/delete/"+id);
   }
 }
